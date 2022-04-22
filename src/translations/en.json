@@ -13,6 +13,8 @@
                     "state": "State",
                     "last-changed": "Last Changed",
                     "last-updated": "Last Updated",
+                    "media-title": "Media Title",
+                    "media-description": "Media Description",
                     "none": "None"
                 }
             },

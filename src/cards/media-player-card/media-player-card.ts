@@ -1,6 +1,7 @@
 import {
     ActionHandlerEvent,
     computeRTL,
+    computeStateDisplay,
     handleAction,
     hasAction,
     HomeAssistant,
@@ -26,7 +27,8 @@ import { isMediaControlVisible } from "./controls/media-player-media-control";
 import "./controls/media-player-volume-control";
 import { isVolumeControlVisible } from "./controls/media-player-volume-control";
 import { MediaPlayerCardConfig } from "./media-player-card-config";
-import { computeMediaIcon, computeMediaNameDisplay, computeMediaStateDisplay } from "./utils";
+import { computeMediaIcon } from "./utils";
+import { getInfo } from "../../utils/info";
 import "../../shared/badge-icon";
 import "../../shared/card";
 import "../../shared/shape-avatar";
@@ -139,17 +141,32 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
         const entity_id = this._config.entity;
         const entity = this.hass.states[entity_id] as MediaPlayerEntity;
 
+        const name = this._config.name || entity.attributes.friendly_name || "";
         const icon = computeMediaIcon(this._config, entity);
         const layout = getLayoutFromConfig(this._config);
 
-        let nameDisplay = computeMediaNameDisplay(this._config, entity);
-        let stateDisplay = computeMediaStateDisplay(this._config, entity, this.hass);
+        let stateDisplay = computeStateDisplay(this.hass.localize, entity, this.hass.locale);
 
         const rtl = computeRTL(this.hass);
 
         const artwork = this._config.use_media_artwork
             ? entity.attributes.entity_picture
             : undefined;
+
+        const primary = getInfo(
+            this._config.primary_info ?? "name",
+            name,
+            stateDisplay,
+            entity,
+            this.hass
+        );
+        const secondary = getInfo(
+            this._config.secondary_info ?? "media-description",
+            name,
+            stateDisplay,
+            entity,
+            this.hass
+        );
 
         return html`
             <mushroom-card .layout=${layout} ?rtl=${rtl}>
@@ -187,8 +204,8 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
                         : null}
                     <mushroom-state-info
                         slot="info"
-                        .primary=${nameDisplay}
-                        .secondary=${stateDisplay}
+                        .primary=${primary}
+                        .secondary=${secondary}
                     ></mushroom-state-info>
                 </mushroom-state-item>
                 ${this._controls.length > 0
@@ -208,13 +225,13 @@ export class MediaPlayerCard extends LitElement implements LovelaceCard {
 
         return html`
             ${otherControls.map(
-                (ctrl) => html`
+            (ctrl) => html`
                     <mushroom-button
                         .icon=${CONTROLS_ICONS[ctrl]}
                         @click=${(e) => this._onControlTap(ctrl, e)}
                     />
                 `
-            )}
+        )}
         `;
     }
 

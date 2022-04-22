@@ -24,11 +24,9 @@ cards:
         use_media_artwork: true
       - type: custom:mushroom-media-player-card
         entity: media_player.living_room
-        use_media_info: true
       - type: custom:mushroom-media-player-card
         entity: media_player.living_room
         use_media_artwork: true
-        use_media_info: true
     columns: 2
     square: false
   - type: vertical-stack

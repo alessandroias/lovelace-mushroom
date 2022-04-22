@@ -13,6 +13,8 @@
                     "state": "Stato",
                     "last-changed": "Ultimo Cambiamento",
                     "last-updated": "Ultimo Aggiornamento",
+                    "media-title": "Titolo della Sorgente",
+                    "media-description": "Descrizione della Sorgente",
                     "none": "Nessuno"
                 }
             },

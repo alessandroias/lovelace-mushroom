@@ -1,8 +1,9 @@
 import { ActionConfig, LovelaceCardConfig } from "custom-card-helpers";
-import { array, assign, boolean, enums, object, optional, string } from "superstruct";
+import { array, assign, boolean, enums, object, optional, string, union } from "superstruct";
 import { actionConfigStruct } from "../../utils/action-struct";
 import { baseLovelaceCardConfig } from "../../utils/editor-styles";
 import { Layout, layoutStruct } from "../../utils/layout";
+import { Info, MediaPlayerInfo, INFOS, MEDIA_PLAYER_INFO } from "../../utils/info";
 
 export const MEDIA_LAYER_MEDIA_CONTROLS = [
     "on_off",
@@ -27,11 +28,12 @@ export interface MediaPlayerCardConfig extends LovelaceCardConfig {
     entity?: string;
     name?: string;
     icon?: string;
-    use_media_info?: boolean;
     use_media_artwork?: boolean;
     volume_controls?: MediaPlayerVolumeControl[];
     media_controls?: MediaPlayerMediaControl[];
     layout?: Layout;
+    primary_info?: Info | MediaPlayerInfo;
+    secondary_info?: Info | MediaPlayerInfo;
     tap_action?: ActionConfig;
     hold_action?: ActionConfig;
     double_tap_action?: ActionConfig;
@@ -43,11 +45,12 @@ export const mediaPlayerCardConfigStruct = assign(
         entity: optional(string()),
         icon: optional(string()),
         name: optional(string()),
-        use_media_info: optional(boolean()),
         use_media_artwork: optional(boolean()),
         volume_controls: optional(array(enums(MEDIA_PLAYER_VOLUME_CONTROLS))),
         media_controls: optional(array(enums(MEDIA_LAYER_MEDIA_CONTROLS))),
         layout: optional(layoutStruct),
+        primary_info: optional(union([enums(INFOS), enums(MEDIA_PLAYER_INFO)])),
+        secondary_info: optional(union([enums(INFOS), enums(MEDIA_PLAYER_INFO)])),
         tap_action: optional(actionConfigStruct),
         hold_action: optional(actionConfigStruct),
         double_tap_action: optional(actionConfigStruct),

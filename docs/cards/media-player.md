@@ -17,10 +17,11 @@ All the options are available in the lovelace editor but you can use `yaml` if y
 | `icon`              | string  | Optional    | Custom icon                                                                            |
 | `name`              | string  | Optional    | Custom name                                                                            |
 | `layout`            | string  | Optional    | Layout of the card. Vertical, horizontal and default layout are supported              |
-| `use_media_info`    | boolean | `[]`        | Use media info instead of name, state and icon when a media is playing                 |
 | `use_media_artwork` | boolean | `[]`        | Use media artwork instead of icon when a media is playing                              |
 | `media_controls`    | list    | `[]`        | List of controls to display (on_off, shuffle, previous, play_pause_stop, next, repeat) |
 | `volume_controls`   | list    | `[]`        | List of controls to display (volume_mute, volume_set, volume_buttons)                  |
+| `primary_info`      | `name` `state` `last-changed` `last-updated` `none` `media-title`  `media-description` | `name`      | Info to show as primary info                                              |
+| `secondary_info`    | `name` `state` `last-changed` `last-updated` `none` `media-title`  `media-description`  | `state`     | Info to show as secondary info                                            |
 | `tap_action`        | action  | `more-info` | Home assistant action to perform on tap                                                |
 | `hold_action`       | action  | `more-info` | Home assistant action to perform on hold                                               |
 | `double_tap_action` | action  | `more-info` | Home assistant action to perform on double_tap                                         |

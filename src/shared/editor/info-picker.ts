@@ -2,7 +2,7 @@ import { HomeAssistant } from "custom-card-helpers";
 import { css, CSSResultGroup, html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import setupCustomlocalize from "../../localize";
-import { Info, INFOS } from "../../utils/info";
+import { Info, INFOS, MediaPlayerInfo } from "../../utils/info";
 import "./../form/mushroom-select";
 
 @customElement("mushroom-info-picker")
@@ -13,7 +13,7 @@ export class InfoPicker extends LitElement {
 
     @property() public configValue = "";
 
-    @property() public infos?: Info[];
+    @property() public infos?: (Info | MediaPlayerInfo)[];
 
     @property() public hass!: HomeAssistant;
 

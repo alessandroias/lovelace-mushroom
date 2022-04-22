@@ -30,31 +30,6 @@ export function callService(
     });
 }
 
-export function computeMediaNameDisplay(
-    config: MediaPlayerCardConfig,
-    entity: MediaPlayerEntity
-): string {
-    let name = config.name || entity.attributes.friendly_name || "";
-    if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
-        if (entity.attributes.media_title) {
-            name = entity.attributes.media_title;
-        }
-    }
-    return name;
-}
-
-export function computeMediaStateDisplay(
-    config: MediaPlayerCardConfig,
-    entity: MediaPlayerEntity,
-    hass: HomeAssistant
-): string {
-    let state = computeStateDisplay(hass.localize, entity, hass.locale);
-    if (![UNAVAILABLE, UNKNOWN, OFF].includes(entity.state) && config.use_media_info) {
-        return computeMediaDescription(entity) || state;
-    }
-    return state;
-}
-
 export function getVolumeLevel(entity: MediaPlayerEntity) {
     return entity.attributes.volume_level != null
         ? entity.attributes.volume_level * 100

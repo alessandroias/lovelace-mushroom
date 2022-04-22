@@ -16,9 +16,9 @@ import {
     MEDIA_LAYER_MEDIA_CONTROLS,
     MEDIA_PLAYER_VOLUME_CONTROLS,
 } from "./media-player-card-config";
+import { INFOS, MEDIA_PLAYER_INFO } from "../../utils/info";
 
 export const MEDIA_FIELDS = [
-    "use_media_info",
     "use_media_artwork",
     "media_controls",
     "volume_controls",
@@ -40,9 +40,33 @@ const computeSchema = memoizeOne((localize: LocalizeFunc, icon?: string): HaForm
     {
         type: "grid",
         name: "",
+        schema: [{ name: "use_media_artwork", selector: { boolean: {} } }]
+    },
+    {
+        type: "grid",
+        name: "",
         schema: [
-            { name: "use_media_info", selector: { boolean: {} } },
-            { name: "use_media_artwork", selector: { boolean: {} } },
+            {
+                name: "primary_info",
+                selector: {
+                    "mush-info": {
+                        infos: [
+                            ...MEDIA_PLAYER_INFO,
+                            ...INFOS
+                        ]
+                    }
+                },
+            },
+            {
+                name: "secondary_info", selector: {
+                    "mush-info": {
+                        infos: [
+                            ...MEDIA_PLAYER_INFO,
+                            ...INFOS
+                        ]
+                    }
+                }
+            }
         ],
     },
     {

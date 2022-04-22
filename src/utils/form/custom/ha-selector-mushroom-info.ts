@@ -2,11 +2,11 @@ import { fireEvent, HomeAssistant } from "custom-card-helpers";
 import { html, LitElement } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import "../../../shared/editor/info-picker";
-import { Info } from "../../info";
+import { Info, MediaPlayerInfo } from "../../info";
 
 export type MushInfoSelector = {
     "mush-info": {
-        infos?: Info[];
+        infos?: (Info | MediaPlayerInfo)[];
     };
 };
 
